@@ -17,7 +17,18 @@ if (navigator.geolocation) {
       const { latitude } = pos.coords;
       const { longitude } = pos.coords;
       const link = `https://www.google.com.br/maps/@${latitude},${longitude}`;
-      console.log(link);
+
+      const map = L.map('map').setView([51.505, -0.09], 13);
+
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
+
+      L.marker([51.5, -0.09])
+        .addTo(map)
+        .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+        .openPopup();
     },
     function () {
       alert('Não foi possível pegar sua localização!');
