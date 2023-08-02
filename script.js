@@ -109,6 +109,32 @@ class App {
   _newWorkout(e) {
     e.preventDefault();
 
+    const type = inputType.value;
+    const distance = +inputDistance.value;
+    const duration = +inputDuration.value;
+
+    if (type === 'running') {
+      const cadence = +inputCadence.value;
+
+      if (
+        !Number.isFinite(distance) ||
+        !Number.isFinite(duration) ||
+        !Number.isFinite(cadence)
+      )
+        return alert('Inputs have to be positive numbers!');
+    }
+
+    if (type === 'cycling') {
+      const elevation = +inputElevation.value;
+
+      if (
+        !Number.isFinite(distance) ||
+        !Number.isFinite(duration) ||
+        !Number.isFinite(elevation)
+      )
+        return alert('Inputs have to be positive numbers!');
+    }
+
     // Clear input fields
     inputDistance.value =
       inputDuration.value =
