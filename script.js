@@ -11,7 +11,6 @@ const inputElevation = document.querySelector('.form__input--elevation');
 class Workout {
   date = new Date();
   id = (Date.now() + '').slice(-10);
-  clicks = 0;
 
   constructor(distance, duration, coords) {
     this.distance = distance;
@@ -27,10 +26,6 @@ class Workout {
     this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${
       months[this.date.getMonth()]
     } ${this.date.getDate()}`;
-  }
-
-  click() {
-    this.clicks++;
   }
 }
 
@@ -263,7 +258,6 @@ class App {
     if (!workoutEl) return;
 
     const workout = this.#workouts.find(wk => wk.id === workoutEl.dataset.id);
-    console.log(workout);
 
     this.#map.setView(workout.coords, this.#mapZoomLevel, {
       animate: true,
@@ -271,8 +265,6 @@ class App {
         duration: 1,
       },
     });
-
-    workout.click();
   }
 
   _setLocalStorage() {
@@ -287,6 +279,11 @@ class App {
     this.#workouts = data;
 
     this.#workouts.forEach(workout => this._renderWorkout(workout));
+  }
+
+  reset() {
+    localStorage.removeItem('workout');
+    location.reload();
   }
 }
 
